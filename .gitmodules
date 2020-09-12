@@ -4,3 +4,6 @@
 [submodule "lib/M5Core2"]
 	path = lib/M5Core2
 	url = https://github.com/m5stack/M5Core2.git
+[submodule "lib/ESP32-audioI2S"]
+	path = lib/ESP32-audioI2S
+	url = https://github.com/schreibfaul1/ESP32-audioI2S.git
