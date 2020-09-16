@@ -1,38 +1,69 @@
 #include <M5Core2.h>
-#include <SD.h>
-#include <WiFi.h>
 
-#include "Audio.h"
-Audio audio;
+#include "src/CPlayer.hpp"
+#include "src/CGui.hpp"
 
-//#include "src/SingSangPlayer.hpp"
+singsang::CPlayer player;
+singsang::CGui gui;
 
 void setup()
 {
     M5.begin();
-    M5.Axp.SetLed(false);
-    M5.Axp.SetSpkEnable(true);
+    player.begin();
+    gui.begin();
 
-    WiFi.mode(WIFI_OFF);
-    delay(500);
-
-    M5.Lcd.setTextFont(2);
-    M5.Lcd.println("Hello, sing sang.");
-    //M5.Lcd.drawPngFile(SD, "/logo.png", 0, 0, 120, 120, 0, 0, 120./512.);
-
-    //delay(1000);
-    audio.setPinout(12, 0, 2);
-
-    audio.setVolume(5);
-
-    audio.connecttoSD("test3.mp3");
-    singsang.setVolume(0.3);
-    singsang.playMp3("/test2.mp3");
+    player.startNextSong();
 }
 
 void loop()
 {
-    audio.loop();
+    player.loop();
+
+    if (audio.isRunning() && audio.getAudioFileDuration() > 0)
+    {
+        const uint8_t progressPercentage = 100. * audio.getAudioCurrentTime() / audio.getAudioFileDuration();
+        gui.drawAudioProgressBar(60, 225, 200, 10, progressPercentage);
+    }
+    else
+    {
+        gui.drawAudioProgressBar(60, 225, 200, 10, 0);
+    }
+
+    if (M5.Touch.ispressed())
+    {
+        const auto touchPoint = M5.Touch.getPressPoint();
+        Serial.print("x,y = "); Serial.print(touchPoint.x);
+        Serial.print(","); Serial.print(touchPoint.y);
+        Serial.println("");
+
+        // volume up & down
+        if (touchPoint.x < 80 && touchPoint.y < 120)
+        {
+            player.increaseVolume();
+            gui.vibrate();
+            // update volume status
+        }
+        if (touchPoint.x < 80 && touchPoint.y > 120)
+        {
+            player.decreaseVolume();
+            gui.vibrate();
+            // update volume status
+        }
+
+        // next track
+        if (touchPoint.x > 270 && touchPoint.y > 120)
+        {
+            player.startNextSong();
+            gui.vibrate();
+        }
+
+        // todo: add dead time after a single click event!
+        // react with vibration on gui event???
+    }
+
+    //gui.drawBatteryWidget(270, 40, 40, 40);
+    // note: this breaks mp3 replay since drawing the png on each cycle takes too much time.
+    // need to do the audio processing on the 2nd core.
 }
 
 void audio_info(const char *info)
