@@ -8,8 +8,8 @@ The simple GUI is specifically designed for children, who are able to choose a s
 
 ## Features
 - [x] Mp3 playback from SD card with a simple GUI
-- [ ] Add battery status indicator
-- [ ] Timeout for touchscreen clicks to prevent multiple activations
+- [x] Add battery status indicator
+- [x] Timeout for touchscreen clicks to prevent multiple activations
 - [ ] Turn itself off, if it does not play for 5 minutes
 
 
