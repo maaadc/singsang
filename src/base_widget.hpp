@@ -10,6 +10,7 @@ class CBaseWidget
 {
 public:
     CBaseWidget() {}
+
     CBaseWidget(const int f_positionX, const int f_positionY, const int f_sizeX,
                 const int f_sizeY)
         : m_positionX(f_positionX)
@@ -27,12 +28,24 @@ public:
             (f_point.x >= m_positionX && f_point.x < (m_positionX + m_sizeX)) &&
             (f_point.y >= m_positionY && f_point.y < (m_positionY + m_sizeY));
 
-        return isTouchPointInWidget;
+        const auto currentTimestamp = millis();
+        const bool isDeadTimeOver =
+            (currentTimestamp >
+             (m_lastTouchTimestamp + m_touchDeadTimeMilliSec));
+
+        if (isTouchPointInWidget && isDeadTimeOver)
+        {
+            m_lastTouchTimestamp = currentTimestamp;
+            return true;
+        }
+        return false;
     }
 
     virtual void draw(const bool f_updateOnly) = 0;
 
 protected:
+    unsigned int m_touchDeadTimeMilliSec{500};
+    unsigned int m_lastTouchTimestamp{0};
     const int m_positionX{0};
     const int m_positionY{0};
     const int m_sizeX{1};
