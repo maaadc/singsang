@@ -15,7 +15,7 @@ public:
         if (f_newItemCount != m_itemCount ||
             f_newSelectedIndex != m_selectedIndex)
         {
-            m_itemCount = f_newItemCount;
+            m_itemCount     = f_newItemCount;
             m_selectedIndex = f_newSelectedIndex;
             draw(true);
         }
@@ -23,17 +23,20 @@ public:
 
     void draw(const bool updateOnly)
     {
-        M5.Lcd.fillRect(m_positionX, m_positionY - m_sizeY, m_sizeX,
-                        2 * m_sizeY, TFT_BLACK);
+        const int radiusBig   = m_sizeY / 2;
+        const int radiusSmall = m_sizeY / 5;
+
+        M5.Lcd.fillRect(m_positionX - radiusBig, m_positionY - m_sizeY,
+                        m_sizeX + 2 * radiusBig + 1, 2 * m_sizeY, TFT_BLACK);
 
         const uint16_t col = M5.Lcd.color565(100, 100, 100);
 
         for (int k = 0; k < m_itemCount; k++)
         {
-            const int cx = m_positionX + (k + 0.5F) * m_sizeX / m_itemCount;
-            const int cy = m_positionY;
-            const int radius =
-                (k == m_selectedIndex) ? m_sizeY / 2 : m_sizeY / 5;
+            const int cx =
+                m_positionX + ((float)k) * m_sizeX / (m_itemCount - 1);
+            const int cy     = m_positionY;
+            const int radius = (k == m_selectedIndex) ? radiusBig : radiusSmall;
             M5.Lcd.fillCircle(cx, cy, radius, col);
         }
     }

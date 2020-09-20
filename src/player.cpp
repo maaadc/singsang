@@ -45,9 +45,11 @@ void CPlayer::initializeGui()
 
     M5.Lcd.drawJpgFile(SD, "/media/logo.jpg", 60, 20, 200, 200);
 
+    m_batteryWidget.draw(false);
     m_fileSelectionWidget.draw(false);
     m_nextSongWidget.draw(false);
     m_progressWidget.draw(false);
+    m_volumeDisplayWidget.draw(false);
     m_volumeDownWidget.draw(false);
     m_volumeUpWidget.draw(false);
 }
@@ -133,6 +135,8 @@ void CPlayer::startNextSong()
 
 void CPlayer::updateGui()
 {
+    m_batteryWidget.update();
+
     int audioProgressPercentage = 0;
     if (m_audio.isRunning() && m_audio.getAudioFileDuration() > 0)
     {
@@ -142,6 +146,8 @@ void CPlayer::updateGui()
     m_progressWidget.update(audioProgressPercentage);
 
     m_fileSelectionWidget.update(m_songFiles.size(), m_activeSongIdx);
+
+    m_volumeDisplayWidget.update(m_currentVolume);
 }
 
 void CPlayer::updateVolume(int f_deltaVolume)
