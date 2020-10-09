@@ -17,8 +17,8 @@ mkdir -p $HOME/Arduino/libraries
 cp -r lib/* $HOME/Arduino/libraries
 
 # Install python2.7 with pyserial (needed by the espressif toolchain)
-apt-get install python python-pip -y
-pip install pyserial
+sudo apt-get install python python-pip -y
+sudo pip install pyserial
 
 # Install Arduino IDE
 export PATH=$PATH:$GITHUB_WORKSPACE/bin
