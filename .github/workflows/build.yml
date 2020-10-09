@@ -13,12 +13,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
         uses: actions/checkout@v2
         with:
           submodules: 'true'
 
-      # Runs a single command using the runners shell
+      - name: Check clang-format
+        run: bash .github/workflows/clang-format.sh
+
       - name: Build on Arduino CLI
-        run: bash ci/build-arduino.sh
+        run: bash .github/workflows/build-arduino.sh
