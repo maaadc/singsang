@@ -12,8 +12,16 @@ cd $GITHUB_WORKSPACE
 # Install clang-format
 sudo apt-get -y install clang-format-10
 
-# Check clang-format output
-for f in **/*.{h,c,hpp,cpp,ino} ; do
+# Check clang-format output for files in .
+for f in *.{h,c,hpp,cpp,ino} ; do
+    if [ -f "$f" ]; then
+        echo "Checking file ${f}"
+        diff $f <(clang-format -assume-filename=main.cpp $f) 1>&2
+    fi
+done
+
+# Check clang-format output for files in ./src
+for f in src/*.{h,c,hpp,cpp,ino} ; do
     if [ -f "$f" ]; then
         echo "Checking file ${f}"
         diff $f <(clang-format -assume-filename=main.cpp $f) 1>&2
