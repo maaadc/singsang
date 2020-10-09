@@ -46,10 +46,10 @@ public:
 protected:
     unsigned int m_touchDeadTimeMilliSec{500};
     unsigned int m_lastTouchTimestamp{0};
-    const int m_positionX{0};
-    const int m_positionY{0};
-    const int m_sizeX{1};
-    const int m_sizeY{1};
+    const int    m_positionX{0};
+    const int    m_positionY{0};
+    const int    m_sizeX{1};
+    const int    m_sizeY{1};
 };
 
 }  // namespace singsang
