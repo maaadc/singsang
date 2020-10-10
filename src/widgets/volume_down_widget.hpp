@@ -8,13 +8,23 @@ namespace singsang
 class CVolumeDownWidget : public CBaseWidget
 {
 public:
-    CVolumeDownWidget() : CBaseWidget(10, 160, 40, 40) {}
+    CVolumeDownWidget(CPlayer& f_player)
+        : CBaseWidget(f_player, 10, 160, 40, 40)
+    {
+    }
 
     void draw(const bool f_updateOnly)
     {
-        M5.Lcd.drawPngFile(SD, "/media/icon-volume-down.png", m_positionX,
-                           m_positionY, m_sizeX, m_sizeY);
+        drawIcon("/media/icon-volume-down.png");
     }
+
+    void touch()
+    {
+        m_player.decreaseVolume();
+        m_player.vibrate();
+    }
+
+    void update() {}
 };
 
 }  // namespace singsang

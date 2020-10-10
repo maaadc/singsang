@@ -8,15 +8,8 @@ namespace singsang
 class CProgressWidget : public CBaseWidget
 {
 public:
-    CProgressWidget() : CBaseWidget(60, 225, 200, 10) {}
-
-    void update(const int f_newProgressPercentage)
+    CProgressWidget(CPlayer& f_player) : CBaseWidget(f_player, 60, 225, 200, 10)
     {
-        if (f_newProgressPercentage != m_progressPercentage)
-        {
-            m_progressPercentage = f_newProgressPercentage;
-            draw(true);
-        }
     }
 
     void draw(const bool updateOnly)
@@ -36,6 +29,26 @@ public:
             (m_sizeX - 6) * (((float)m_progressPercentage) / 100.0);
         M5.Lcd.fillRoundRect(m_positionX + 3, m_positionY + 3, barSizeX,
                              m_sizeY - 6, 2, color);
+    }
+
+    void touch() {}
+
+    void update()
+    {
+        int newProgressPercentage = 0;
+
+        auto& audio = m_player.getAudio();
+        if (audio.isRunning() && audio.getAudioFileDuration() > 0)
+        {
+            newProgressPercentage = 100. * audio.getAudioCurrentTime() /
+                                    audio.getAudioFileDuration();
+        }
+
+        if (newProgressPercentage != m_progressPercentage)
+        {
+            m_progressPercentage = newProgressPercentage;
+            draw(true);
+        }
     }
 
 private:

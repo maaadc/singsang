@@ -8,7 +8,16 @@ namespace singsang
 class CBatteryWidget : public CBaseWidget
 {
 public:
-    CBatteryWidget() : CBaseWidget(270, 40, 40, 40) {}
+    CBatteryWidget(CPlayer& f_player) : CBaseWidget(f_player, 270, 40, 40, 40)
+    {
+    }
+
+    void draw(const bool updateOnly)
+    {
+        drawIcon(m_currentIconPath.c_str());
+    }
+
+    void touch() {}
 
     void update()
     {
@@ -46,12 +55,6 @@ public:
             m_currentIconPath = newIconPath;
             draw(true);
         }
-    }
-
-    void draw(const bool updateOnly)
-    {
-        M5.Lcd.drawPngFile(SD, m_currentIconPath.c_str(), m_positionX,
-                           m_positionY, m_sizeX, m_sizeY);
     }
 
 private:

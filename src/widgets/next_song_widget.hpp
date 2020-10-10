@@ -8,15 +8,22 @@ namespace singsang
 class CNextSongWidget : public CBaseWidget
 {
 public:
-    CNextSongWidget() : CBaseWidget(270, 160, 40, 40) {}
-
-    void update() {}
+    CNextSongWidget(CPlayer& f_player) : CBaseWidget(f_player, 270, 160, 40, 40)
+    {
+    }
 
     void draw(const bool f_updateOnly)
     {
-        M5.Lcd.drawPngFile(SD, "/media/icon-track-next.png", m_positionX,
-                           m_positionY, m_sizeX, m_sizeY);
+        drawIcon("/media/icon-track-next.png");
     }
+
+    void touch()
+    {
+        m_player.startNextSong();
+        m_player.vibrate();
+    }
+
+    void update() {}
 };
 
 }  // namespace singsang

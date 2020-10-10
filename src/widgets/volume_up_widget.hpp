@@ -8,13 +8,22 @@ namespace singsang
 class CVolumeUpWidget : public CBaseWidget
 {
 public:
-    CVolumeUpWidget() : CBaseWidget(10, 40, 40, 40) {}
+    CVolumeUpWidget(CPlayer& f_player) : CBaseWidget(f_player, 10, 40, 40, 40)
+    {
+    }
 
     void draw(const bool f_updateOnly)
     {
-        M5.Lcd.drawPngFile(SD, "/media/icon-volume-up.png", m_positionX,
-                           m_positionY, m_sizeX, m_sizeY);
+        drawIcon("/media/icon-volume-up.png");
     }
+
+    void touch()
+    {
+        m_player.increaseVolume();
+        m_player.vibrate();
+    }
+
+    void update() {}
 };
 
 }  // namespace singsang

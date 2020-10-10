@@ -8,17 +8,9 @@ namespace singsang
 class CFileSelectionWidget : public CBaseWidget
 {
 public:
-    CFileSelectionWidget() : CBaseWidget(60, 10, 200, 10) {}
-
-    void update(const int f_newItemCount, const int f_newSelectedIndex)
+    CFileSelectionWidget(CPlayer& f_player)
+        : CBaseWidget(f_player, 60, 10, 200, 10)
     {
-        if (f_newItemCount != m_itemCount ||
-            f_newSelectedIndex != m_selectedIndex)
-        {
-            m_itemCount     = f_newItemCount;
-            m_selectedIndex = f_newSelectedIndex;
-            draw(true);
-        }
     }
 
     void draw(const bool updateOnly)
@@ -38,6 +30,23 @@ public:
             const int cy     = m_positionY;
             const int radius = (k == m_selectedIndex) ? radiusBig : radiusSmall;
             M5.Lcd.fillCircle(cx, cy, radius, col);
+        }
+    }
+
+    void touch() {}
+
+    void update()
+    {
+        const int newItemCount     = m_player.getNumberOfSongs();
+        const int newSelectedIndex = m_player.getActiveSongIndex();
+
+        const bool haveValuesChanged = (newItemCount != m_itemCount) ||
+                                       (newSelectedIndex != m_selectedIndex);
+        if (haveValuesChanged)
+        {
+            m_itemCount     = newItemCount;
+            m_selectedIndex = newSelectedIndex;
+            draw(true);
         }
     }
 

@@ -1,17 +1,17 @@
 #include <M5Core2.h>
 
-#include "src/player.hpp"
+#include "src/gui.hpp"
 
-singsang::CPlayer player;
+singsang::CGui gui;
 
 void setup()
 {
-    player.begin();
+    gui.begin();
 }
 
 void loop()
 {
-    player.loop();
+    gui.loop();
 }
 
 void audio_info(const char *info)
