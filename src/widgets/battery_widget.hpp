@@ -1,6 +1,7 @@
 #ifndef SINGSANG_BATTERY_WIDGET_HPP
 #define SINGSANG_BATTERY_WIDGET_HPP
 
+#include "../helpers.hpp"
 #include "base_widget.hpp"
 
 namespace singsang
@@ -8,7 +9,7 @@ namespace singsang
 class CBatteryWidget : public CBaseWidget
 {
 public:
-    CBatteryWidget(CPlayer& f_player) : CBaseWidget(f_player, 270, 40, 40, 40)
+    CBatteryWidget(CPlayer& f_player) : CBaseWidget(f_player, 270, 100, 40, 40)
     {
     }
 
@@ -30,21 +31,27 @@ public:
         }
         else
         {
-            const auto batteryPower = M5.Axp.GetBatPower();
+            const CFloatRangeMapper batteryVoltageMapper{3.0F, 4.1F, 0.F, 1.F,
+                                                         true};
+            const float level = batteryVoltageMapper(M5.Axp.GetBatVoltage());
 
-            if (batteryPower > 0.20)
+            if (level < 0.20)
+            {
+                newIconPath = "/media/icon-battery.png";
+            }
+            else if (level < 0.40)
             {
                 newIconPath = "/media/icon-battery-1.png";
             }
-            else if (batteryPower > 0.40)
+            else if (level < 0.60)
             {
                 newIconPath = "/media/icon-battery-2.png";
             }
-            else if (batteryPower > 0.60)
+            else if (level < 0.80)
             {
                 newIconPath = "/media/icon-battery-3.png";
             }
-            else if (batteryPower > 0.80)
+            else
             {
                 newIconPath = "/media/icon-battery-4.png";
             }
