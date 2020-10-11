@@ -15,7 +15,7 @@ public:
 
     void draw(const bool updateOnly)
     {
-        const uint16_t color = M5.Lcd.color565(100, 100, 100);
+        const uint16_t color = M5.Lcd.color565(150, 150, 150);
 
         for (int volumeIdx = 0; volumeIdx < 4; volumeIdx++)
         {

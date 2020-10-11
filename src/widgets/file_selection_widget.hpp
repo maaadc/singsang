@@ -21,7 +21,7 @@ public:
         M5.Lcd.fillRect(m_positionX - radiusBig, m_positionY - m_sizeY,
                         m_sizeX + 2 * radiusBig + 1, 2 * m_sizeY, TFT_BLACK);
 
-        const uint16_t col = M5.Lcd.color565(100, 100, 100);
+        const uint16_t col = M5.Lcd.color565(150, 150, 150);
 
         for (int k = 0; k < m_itemCount; k++)
         {

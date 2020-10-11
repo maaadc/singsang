@@ -14,7 +14,7 @@ public:
 
     void draw(const bool updateOnly)
     {
-        const uint16_t color = M5.Lcd.color565(100, 100, 100);
+        const uint16_t color = M5.Lcd.color565(150, 150, 150);
         if (!updateOnly)
         {
             M5.Lcd.drawRoundRect(m_positionX, m_positionY, m_sizeX, m_sizeY, 4,
