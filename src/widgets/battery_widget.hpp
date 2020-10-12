@@ -31,9 +31,9 @@ public:
         }
         else
         {
-            const CFloatRangeMapper batteryVoltageMapper{3.0F, 4.1F, 0.F, 1.F,
-                                                         true};
-            const float level = batteryVoltageMapper(M5.Axp.GetBatVoltage());
+            const CFloatRangeMapper battMapper{{3.0F, 3.8F}, {0.F, 1.F}, true};
+
+            const float level = battMapper(M5.Axp.GetBatVoltage());
 
             if (level < 0.20)
             {

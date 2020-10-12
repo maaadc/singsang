@@ -1,6 +1,8 @@
 #ifndef SINGSANG_HELPERS_HPP
 #define SINGSANG_HELPERS_HPP
 
+#include <utility>
+
 namespace singsang
 {
 template <typename T>
@@ -25,16 +27,16 @@ class TRangeMapper
 public:
     TRangeMapper() = delete;
 
-    explicit TRangeMapper(const InputType f_lowIn, const InputType f_highIn,
-                          const OutputType f_lowOut, const OutputType f_highOut,
-                          const bool f_clipOutput = true)
-        : m_lowIn(f_lowIn)
-        , m_highIn(f_highIn)
-        , m_lowOut(f_lowOut)
-        , m_highOut(f_highOut)
+    explicit TRangeMapper(const std::pair<InputType, InputType>   f_inputRange,
+                          const std::pair<OutputType, OutputType> f_outputRange,
+                          const bool f_clipOutput = false)
+        : m_lowIn(f_inputRange.first)
+        , m_highIn(f_inputRange.second)
+        , m_lowOut(f_outputRange.first)
+        , m_highOut(f_outputRange.second)
         , m_clipOutput(f_clipOutput)
     {
-        assert((f_highIn - f_lowIn) > static_cast<InputType>(0.F));
+        assert((m_highIn - m_lowIn) > static_cast<InputType>(0.F));
     }
 
     ~TRangeMapper() = default;
