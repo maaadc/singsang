@@ -20,7 +20,7 @@ void CPlayer::initializeHardware()
     delay(100);
 
     M5.Axp.SetLed(false);
-    M5.Axp.SetLcdVoltage(1500);  // dimmed, nominal value is 2800
+    M5.Axp.SetLcdVoltage(2700);  // dimmed, nominal value is 2800
     M5.Axp.SetSpkEnable(true);
 
     m_audio.setPinout(12, 0, 2);
