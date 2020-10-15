@@ -20,8 +20,8 @@ public:
 
     void touch()
     {
-        m_player.decreaseVolume();
         m_player.vibrate();
+        m_player.decreaseVolume();
     }
 
     void update() {}

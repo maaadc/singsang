@@ -49,11 +49,11 @@ void CGui::initializeGui()
     addWidget<CBatteryWidget>();
     addWidget<CFileSelectionWidget>();
     addWidget<CNextSongWidget>();
+    addWidget<CGoBackWidget>();
     addWidget<CProgressWidget>();
     addWidget<CVolumeDisplayWidget>();
     addWidget<CVolumeDownWidget>();
     addWidget<CVolumeUpWidget>();
-    addWidget<CBatteryWidget>();
 
     for (const auto& widget_p : m_widgets)
     {

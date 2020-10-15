@@ -8,7 +8,7 @@ namespace singsang
 class CNextSongWidget : public CBaseWidget
 {
 public:
-    CNextSongWidget(CPlayer& f_player) : CBaseWidget(f_player, 270, 160, 40, 40)
+    CNextSongWidget(CPlayer& f_player) : CBaseWidget(f_player, 270, 180, 40, 40)
     {
     }
 
@@ -19,8 +19,8 @@ public:
 
     void touch()
     {
-        m_player.startNextSong();
         m_player.vibrate();
+        m_player.startNextSong();
     }
 
     void update() {}
