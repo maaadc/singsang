@@ -1,4 +1,35 @@
 #include "player.hpp"
+
+void audio_id3image(File& audioFile, const int framesize)
+{
+    // Ensure there is enough heap space
+    if (ESP.getFreeHeap() < 1.2 * framesize)
+    {
+        return;
+    }
+
+    std::unique_ptr<char[]> img_p{new char[framesize]};
+    const auto              img = img_p.get();
+
+    audioFile.readBytes(img, framesize);
+
+    // A valid jpeg file starts with the hex code "FF D8 FF" and ends with "FF
+    // D9". Extract position of the file start
+    size_t ofs         = 0;
+    bool   isJpegBegin = false;
+    for (ofs = 0; (!isJpegBegin && ofs + 3 < framesize); ofs++)
+    {
+        isJpegBegin = (img[ofs + 1] == 0xFF && img[ofs + 2] == 0xD8 &&
+                       img[ofs + 3] == 0xFF);
+    }
+    if (isJpegBegin)
+    {
+        M5.Lcd.drawJpg((uint8_t*)(img + ofs),
+                       static_cast<size_t>(framesize - ofs), 60, 20, 200, 200,
+                       0, 0, JPEG_DIV_2);
+    }
+}
+
 namespace singsang
 {
 void CPlayer::begin()
