@@ -9,6 +9,7 @@
 #include "player.hpp"
 #include "widgets/battery_widget.hpp"
 #include "widgets/file_selection_widget.hpp"
+#include "widgets/go_back_widget.hpp"
 #include "widgets/next_song_widget.hpp"
 #include "widgets/progress_widget.hpp"
 #include "widgets/volume_display_widget.hpp"
