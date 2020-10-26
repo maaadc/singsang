@@ -39,6 +39,7 @@ public:
     void decreaseVolume();
 
 private:
+    void handleInactivityTimeout();
     void handleTouchEvents();
     void initializeGui();
     void initializeHardware();
@@ -50,6 +51,8 @@ private:
 
     int                 m_currentVolume{0};
     int                 m_activeSongIdx{-1};
+    unsigned int        m_turnOffAfterInactiveForMilliSec{5 * 60 * 1000};
+    unsigned int        m_lastActivityTimestamp{0};
     std::vector<String> m_songFiles{};
 
     CBatteryWidget       m_batteryWidget;

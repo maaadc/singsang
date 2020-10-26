@@ -17,6 +17,8 @@ void CPlayer::loop()
     handleTouchEvents();
 
     updateGui();
+
+    handleInactivityTimeout();
 }
 
 void CPlayer::initializeHardware()
@@ -81,6 +83,27 @@ void CPlayer::populateMusicFileList()
 
     Serial.print("MusicFileList length: ");
     Serial.println(m_songFiles.size());
+}
+
+void CPlayer::handleInactivityTimeout()
+{
+    if (m_audio.isRunning())
+    {
+        m_lastActivityTimestamp = millis();
+    }
+    else
+    {
+        const auto currentTimestamp = millis();
+        const bool isTimeoutReached =
+            (currentTimestamp >
+             (m_lastActivityTimestamp + m_turnOffAfterInactiveForMilliSec));
+
+        if (isTimeoutReached)
+        {
+            m_audio.stopSong();
+            M5.Axp.DeepSleep(0U);  // power off
+        }
+    }
 }
 
 void CPlayer::handleTouchEvents()
