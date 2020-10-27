@@ -25,7 +25,6 @@ public:
     ~CGui() = default;
 
     void begin();
-
     void loop();
 
 private:
@@ -35,18 +34,11 @@ private:
     void initializeGui();
     void updateGui();
 
-    int32_t m_level{0};
-    CPlayer m_player{};
+    CPlayer  m_player{};
+    EGuiMode m_mode{EGuiMode::StartupView};
 
     std::vector<std::shared_ptr<CBaseWidget>> m_widgets{};
 
-    /*CBatteryWidget       m_batteryWidget;
-    CFileSelectionWidget m_fileSelectionWidget;
-    CNextSongWidget      m_nextSongWidget;
-    CProgressWidget      m_progressWidget;
-    CVolumeDisplayWidget m_volumeDisplayWidget;
-    CVolumeDownWidget    m_volumeDownWidget;
-    CVolumeUpWidget      m_volumeUpWidget;*/
 };
 }  // namespace singsang
 

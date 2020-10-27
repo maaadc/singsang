@@ -8,8 +8,8 @@ namespace singsang
 class CFileSelectionWidget : public CBaseWidget
 {
 public:
-    CFileSelectionWidget(CPlayer& f_player)
-        : CBaseWidget(f_player, 60, 10, 200, 10)
+    CFileSelectionWidget(EGuiMode& f_mode, CPlayer& f_player)
+        : CBaseWidget(f_mode, f_player, 60, 10, 200, 10)
     {
     }
 

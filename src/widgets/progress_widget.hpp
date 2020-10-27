@@ -8,7 +8,8 @@ namespace singsang
 class CProgressWidget : public CBaseWidget
 {
 public:
-    CProgressWidget(CPlayer& f_player) : CBaseWidget(f_player, 60, 225, 200, 10)
+    CProgressWidget(EGuiMode& f_mode, CPlayer& f_player)
+        : CBaseWidget(f_mode, f_player, 60, 225, 200, 10)
     {
     }
 

@@ -4,6 +4,7 @@
 #include <M5Core2.h>
 #include <SD.h>
 
+#include "../mode.hpp"
 #include "../player.hpp"
 
 namespace singsang
@@ -13,9 +14,10 @@ class CBaseWidget
 public:
     CBaseWidget() = delete;
 
-    CBaseWidget(CPlayer& f_player, const int f_positionX, const int f_positionY,
-                const int f_sizeX, const int f_sizeY)
-        : m_player(f_player)
+    CBaseWidget(EGuiMode& f_mode, CPlayer& f_player, const int f_positionX,
+                const int f_positionY, const int f_sizeX, const int f_sizeY)
+        : m_mode(f_mode)
+        , m_player(f_player)
         , m_positionX(f_positionX)
         , m_positionY(f_positionY)
         , m_sizeX(f_sizeX)
@@ -36,14 +38,15 @@ public:
         draw(false);
     }
 
-    void handleTouch(TouchPoint_t f_point)
+    bool handleTouch(TouchPoint_t f_point)
+    //< returns true if touch event was triggered
     {
         const bool isTouchPointInWidget =
             (f_point.x >= m_positionX && f_point.x < (m_positionX + m_sizeX)) &&
             (f_point.y >= m_positionY && f_point.y < (m_positionY + m_sizeY));
         if (!isTouchPointInWidget)
         {
-            return;
+            return false;
         }
 
         const auto currentTimestamp = millis();
@@ -52,11 +55,12 @@ public:
              (m_lastTouchTimestamp + m_touchDeadTimeMilliSec));
         if (!isDeadTimeOver)
         {
-            return;
+            return false;
         }
 
         m_lastTouchTimestamp = currentTimestamp;
         touch();
+        return true;
     }
 
 protected:
@@ -66,7 +70,8 @@ protected:
                            m_sizeY);
     }
 
-    CPlayer& m_player;
+    EGuiMode& m_mode;
+    CPlayer&  m_player;
 
     unsigned int m_touchDeadTimeMilliSec{500};
     unsigned int m_lastTouchTimestamp{0};

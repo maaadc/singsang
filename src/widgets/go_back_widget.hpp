@@ -8,7 +8,10 @@ namespace singsang
 class CGoBackWidget : public CBaseWidget
 {
 public:
-    CGoBackWidget(CPlayer& f_player) : CBaseWidget(f_player, 270, 20, 40, 40) {}
+    CGoBackWidget(EGuiMode& f_mode, CPlayer& f_player)
+        : CBaseWidget(f_mode, f_player, 270, 20, 40, 40)
+    {
+    }
 
     void draw(const bool f_updateOnly)
     {
@@ -18,6 +21,20 @@ public:
     void touch()
     {
         m_player.vibrate();
+
+        switch (m_mode)
+        {
+            case EGuiMode::StartupView:
+                break;
+
+            case EGuiMode::CategoryView:
+                m_mode = EGuiMode::StartupView;
+                break;
+
+            case EGuiMode::SongView:
+                m_mode = EGuiMode::CategoryView;
+                break;
+        }
     }
 
     void update() {}

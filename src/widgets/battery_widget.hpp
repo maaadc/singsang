@@ -9,7 +9,8 @@ namespace singsang
 class CBatteryWidget : public CBaseWidget
 {
 public:
-    CBatteryWidget(CPlayer& f_player) : CBaseWidget(f_player, 270, 100, 40, 40)
+    CBatteryWidget(EGuiMode& f_mode, CPlayer& f_player)
+        : CBaseWidget(f_mode, f_player, 270, 100, 40, 40)
     {
     }
 

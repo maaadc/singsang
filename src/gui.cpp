@@ -20,7 +20,7 @@ void CGui::loop()
 template <typename T>
 void CGui::addWidget()
 {
-    m_widgets.emplace_back(std::shared_ptr<T>(new T(m_player)));
+    m_widgets.emplace_back(std::shared_ptr<T>(new T(m_mode, m_player)));
 }
 
 void CGui::handleTouchEvents()

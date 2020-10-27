@@ -8,7 +8,8 @@ namespace singsang
 class CNextSongWidget : public CBaseWidget
 {
 public:
-    CNextSongWidget(CPlayer& f_player) : CBaseWidget(f_player, 270, 180, 40, 40)
+    CNextSongWidget(EGuiMode& f_mode, CPlayer& f_player)
+        : CBaseWidget(f_mode, f_player, 270, 180, 40, 40)
     {
     }
 

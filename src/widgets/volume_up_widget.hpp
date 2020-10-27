@@ -8,7 +8,8 @@ namespace singsang
 class CVolumeUpWidget : public CBaseWidget
 {
 public:
-    CVolumeUpWidget(CPlayer& f_player) : CBaseWidget(f_player, 10, 40, 40, 40)
+    CVolumeUpWidget(EGuiMode& f_mode, CPlayer& f_player)
+        : CBaseWidget(f_mode, f_player, 10, 40, 40, 40)
     {
     }
 
