@@ -28,8 +28,7 @@ public:
     TRangeMapper() = delete;
 
     explicit TRangeMapper(const std::pair<InputType, InputType>   f_inputRange,
-                          const std::pair<OutputType, OutputType> f_outputRange,
-                          const bool f_clipOutput = false)
+                          const std::pair<OutputType, OutputType> f_outputRange, const bool f_clipOutput = false)
         : m_lowIn(f_inputRange.first)
         , m_highIn(f_inputRange.second)
         , m_lowOut(f_outputRange.first)
@@ -45,8 +44,7 @@ public:
     {
         const float inputFraction = (f_value - m_lowIn) / (m_highIn - m_lowIn);
 
-        const OutputType valueOut =
-            m_lowOut + inputFraction * (m_highOut - m_lowOut);
+        const OutputType valueOut = m_lowOut + inputFraction * (m_highOut - m_lowOut);
 
         if (m_clipOutput)
         {
