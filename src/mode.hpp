@@ -3,11 +3,11 @@
 
 namespace singsang
 {
-enum class EGuiMode : int32_t
+enum class EGuiMode : int
 {
-    StartupView,   //< Startup view showing the logo
-    CategoryView,  //< Pick a category
-    SongView,      //< Pick and play song in category
+    StartupView = 0,  //< Startup view showing the logo
+    CategoryView,     //< Pick a category
+    SongView,         //< Pick and play song in category
 };
 }  // namespace singsang
 

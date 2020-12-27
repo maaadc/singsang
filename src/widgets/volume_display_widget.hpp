@@ -8,10 +8,7 @@ namespace singsang
 class CVolumeDisplayWidget : public CBaseWidget
 {
 public:
-    CVolumeDisplayWidget(EGuiMode& f_mode, CPlayer& f_player)
-        : CBaseWidget(f_mode, f_player, 10, 80, 40, 80)
-    {
-    }
+    CVolumeDisplayWidget(EGuiMode& f_mode, CPlayer& f_player) : CBaseWidget(f_mode, f_player, 10, 80, 40, 80) {}
 
     void draw(const bool updateOnly)
     {
@@ -27,14 +24,12 @@ public:
             if (!updateOnly)
             {
                 M5.Lcd.drawRoundRect(pointX, pointY, sizeX, sizeY, 4, color);
-                M5.Lcd.drawRoundRect(pointX + 1, pointY + 1, sizeX - 2,
-                                     sizeY - 2, 3, color);
+                M5.Lcd.drawRoundRect(pointX + 1, pointY + 1, sizeX - 2, sizeY - 2, 3, color);
             }
 
             const int barIsActive = (m_audioVolume > 4 * volumeIdx);
             const int pickColor   = barIsActive ? color : TFT_BLACK;
-            M5.Lcd.fillRoundRect(pointX + 3, pointY + 3, sizeX - 6, sizeY - 6,
-                                 2, pickColor);
+            M5.Lcd.fillRoundRect(pointX + 3, pointY + 3, sizeX - 6, sizeY - 6, 2, pickColor);
         }
     }
 

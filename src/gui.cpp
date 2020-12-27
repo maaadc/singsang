@@ -1,5 +1,15 @@
 #include "gui.hpp"
 
+#include "widgets/battery_widget.hpp"
+#include "widgets/file_selection_widget.hpp"
+#include "widgets/go_back_widget.hpp"
+#include "widgets/go_next_widget.hpp"
+#include "widgets/go_select_widget.hpp"
+#include "widgets/progress_widget.hpp"
+#include "widgets/volume_display_widget.hpp"
+#include "widgets/volume_down_widget.hpp"
+#include "widgets/volume_up_widget.hpp"
+
 namespace singsang
 {
 void CGui::begin()
@@ -44,12 +54,13 @@ void CGui::initializeGui()
     M5.Lcd.fillScreen(TFT_BLACK);
     M5.Lcd.setTextFont(2);
 
-    M5.Lcd.drawJpgFile(SD, "/media/logo.jpg", 60, 20, 200, 200);
+    m_player.updateCategoryIcon(EGuiMode::StartupView);
 
     addWidget<CBatteryWidget>();
     addWidget<CFileSelectionWidget>();
-    addWidget<CNextSongWidget>();
+    addWidget<CGoNextWidget>();
     addWidget<CGoBackWidget>();
+    addWidget<CGoSelectWidget>();
     addWidget<CProgressWidget>();
     addWidget<CVolumeDisplayWidget>();
     addWidget<CVolumeDownWidget>();

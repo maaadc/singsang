@@ -14,14 +14,15 @@ class CBaseWidget
 public:
     CBaseWidget() = delete;
 
-    CBaseWidget(EGuiMode& f_mode, CPlayer& f_player, const int f_positionX,
-                const int f_positionY, const int f_sizeX, const int f_sizeY)
+    CBaseWidget(EGuiMode& f_mode, CPlayer& f_player, const int f_positionX, const int f_positionY, const int f_sizeX,
+                const int f_sizeY, const int f_touchMargin = 0)
         : m_mode(f_mode)
         , m_player(f_player)
         , m_positionX(f_positionX)
         , m_positionY(f_positionY)
         , m_sizeX(f_sizeX)
         , m_sizeY(f_sizeY)
+        , m_touchMargin(f_touchMargin)
     {
     }
 
@@ -39,20 +40,18 @@ public:
     }
 
     bool handleTouch(TouchPoint_t f_point)
-    //< returns true if touch event was triggered
+    //< Returns true if touch event was triggered. A positive touch margin increases the size for touch events.
     {
         const bool isTouchPointInWidget =
-            (f_point.x >= m_positionX && f_point.x < (m_positionX + m_sizeX)) &&
-            (f_point.y >= m_positionY && f_point.y < (m_positionY + m_sizeY));
+            (f_point.x >= (m_positionX - m_touchMargin) && f_point.x < (m_positionX + m_sizeX + m_touchMargin)) &&
+            (f_point.y >= (m_positionY - m_touchMargin) && f_point.y < (m_positionY + m_sizeY + m_touchMargin));
         if (!isTouchPointInWidget)
         {
             return false;
         }
 
         const auto currentTimestamp = millis();
-        const bool isDeadTimeOver =
-            (currentTimestamp >
-             (m_lastTouchTimestamp + m_touchDeadTimeMilliSec));
+        const bool isDeadTimeOver   = (currentTimestamp > (m_lastTouchTimestamp + m_touchDeadTimeMilliSec));
         if (!isDeadTimeOver)
         {
             return false;
@@ -66,8 +65,7 @@ public:
 protected:
     void drawIcon(const char* f_iconPath)
     {
-        M5.Lcd.drawPngFile(SD, f_iconPath, m_positionX, m_positionY, m_sizeX,
-                           m_sizeY);
+        M5.Lcd.drawPngFile(SD, f_iconPath, m_positionX, m_positionY, m_sizeX, m_sizeY);
     }
 
     EGuiMode& m_mode;
@@ -79,6 +77,7 @@ protected:
     const int    m_positionY{0};
     const int    m_sizeX{1};
     const int    m_sizeY{1};
+    const int    m_touchMargin{0};
 };
 
 }  // namespace singsang

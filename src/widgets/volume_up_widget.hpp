@@ -8,10 +8,7 @@ namespace singsang
 class CVolumeUpWidget : public CBaseWidget
 {
 public:
-    CVolumeUpWidget(EGuiMode& f_mode, CPlayer& f_player)
-        : CBaseWidget(f_mode, f_player, 10, 40, 40, 40)
-    {
-    }
+    CVolumeUpWidget(EGuiMode& f_mode, CPlayer& f_player) : CBaseWidget(f_mode, f_player, 10, 10, 40, 40, 20) {}
 
     void draw(const bool f_updateOnly)
     {
@@ -20,8 +17,8 @@ public:
 
     void touch()
     {
-        m_player.vibrate();
         m_player.increaseVolume();
+        m_player.vibrate();
     }
 
     void update() {}

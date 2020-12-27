@@ -8,10 +8,7 @@ namespace singsang
 class CVolumeDownWidget : public CBaseWidget
 {
 public:
-    CVolumeDownWidget(EGuiMode& f_mode, CPlayer& f_player)
-        : CBaseWidget(f_mode, f_player, 10, 160, 40, 40)
-    {
-    }
+    CVolumeDownWidget(EGuiMode& f_mode, CPlayer& f_player) : CBaseWidget(f_mode, f_player, 10, 190, 40, 40, 20) {}
 
     void draw(const bool f_updateOnly)
     {
